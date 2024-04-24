@@ -106,6 +106,13 @@ func NewFakeDockerClient() *FakeDockerClient {
 		ImageInspects:       make(map[string]*dockertypes.ImageInspect),
 		ImageIDsNeedingAuth: make(map[string]dockerregistry.AuthConfig),
 		RandGenerator:       rand.New(rand.NewSource(time.Now().UnixNano())),
+		Information: dockertypes.Info{
+			Runtimes: map[string]dockertypes.Runtime{
+				"runc": dockertypes.Runtime{
+					Path: "runc",
+				},
+			},
+		},
 	}
 }
 
