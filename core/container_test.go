@@ -270,6 +270,14 @@ func TestContainerStatus(t *testing.T) {
 		return
 	}
 
+	runSandboxResp, err := ds.RunPodSandbox(getTestCTX(), &runtimeapi.RunPodSandboxRequest{
+		Config: sConfig,
+	})
+	if err != nil {
+		t.Errorf("RunPodSandbox: %v", err)
+		return
+	}
+
 	// Create the container.
 	fClock.SetTime(time.Now().Add(-1 * time.Hour))
 	expected.CreatedAt = fClock.Now().UnixNano()
