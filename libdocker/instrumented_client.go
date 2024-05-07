@@ -166,7 +166,7 @@ func (in instrumentedInterface) InspectImageByID(image string) (*dockertypes.Ima
 
 func (in instrumentedInterface) ListImages(
 	opts dockertypes.ImageListOptions,
-) ([]dockertypes.ImageSummary, error) {
+) ([]dockerimagetypes.Summary, error) {
 	const operation = "list_images"
 	defer recordOperation(operation, time.Now())
 

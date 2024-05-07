@@ -34,6 +34,7 @@ import (
 	dockercontainer "github.com/docker/docker/api/types/container"
 	dockerimagetypes "github.com/docker/docker/api/types/image"
 	dockerregistry "github.com/docker/docker/api/types/registry"
+	dockersystem "github.com/docker/docker/api/types/system"
 	dockerapi "github.com/docker/docker/client"
 	dockermessage "github.com/docker/docker/pkg/jsonmessage"
 	dockerstdcopy "github.com/docker/docker/pkg/stdcopy"
@@ -443,7 +444,7 @@ func (d *kubeDockerClient) PullImage(
 func (d *kubeDockerClient) RemoveImage(
 	image string,
 	opts dockertypes.ImageRemoveOptions,
-) ([]dockertypes.ImageDeleteResponseItem, error) {
+) ([]dockerimagetypes.DeleteResponse, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), d.timeout)
 	defer cancel()
 	resp, err := d.client.ImageRemove(ctx, image, opts)
@@ -458,7 +459,7 @@ func (d *kubeDockerClient) RemoveImage(
 
 func (d *kubeDockerClient) Logs(
 	id string,
-	opts dockertypes.ContainerLogsOptions,
+	opts dockercontainer.LogsOptions,
 	sopts StreamOptions,
 ) error {
 	ctx, cancel := context.WithCancel(context.Background())
@@ -492,7 +493,7 @@ func (d *kubeDockerClient) Version() (*dockertypes.Version, error) {
 	return &resp, nil
 }
 
-func (d *kubeDockerClient) Info() (*dockertypes.Info, error) {
+func (d *kubeDockerClient) Info() (*dockersystem.Info, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), d.timeout)
 	defer cancel()
 	resp, err := d.client.Info(ctx)
@@ -579,7 +580,7 @@ func (d *kubeDockerClient) InspectExec(id string) (*dockertypes.ContainerExecIns
 
 func (d *kubeDockerClient) AttachToContainer(
 	id string,
-	opts dockertypes.ContainerAttachOptions,
+	opts dockercontainer.AttachOptions,
 	sopts StreamOptions,
 ) error {
 	ctx, cancel := context.WithCancel(context.Background())
@@ -604,7 +605,7 @@ func (d *kubeDockerClient) AttachToContainer(
 func (d *kubeDockerClient) ResizeExecTTY(id string, height, width uint) error {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-	return d.client.ContainerExecResize(ctx, id, dockertypes.ResizeOptions{
+	return d.client.ContainerExecResize(ctx, id, dockercontainer.ResizeOptions{
 		Height: height,
 		Width:  width,
 	})
@@ -613,7 +614,7 @@ func (d *kubeDockerClient) ResizeExecTTY(id string, height, width uint) error {
 func (d *kubeDockerClient) ResizeContainerTTY(id string, height, width uint) error {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-	return d.client.ContainerResize(ctx, id, dockertypes.ResizeOptions{
+	return d.client.ContainerResize(ctx, id, dockercontainer.ResizeOptions{
 		Height: height,
 		Width:  width,
 	})
