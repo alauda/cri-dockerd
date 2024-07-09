@@ -74,11 +74,11 @@ type FakeDockerClient struct {
 
 	VersionInfo       dockertypes.Version
 	Information       dockersystem.Info
-	ExecInspect       *dockertypes.ContainerExecInspect
+	ExecInspect       *dockercontainer.ExecInspect
 	execCmd           []string
 	EnableSleep       bool
 	ImageHistoryMap   map[string][]dockerimagetypes.HistoryResponseItem
-	ContainerStatsMap map[string]*dockertypes.StatsJSON
+	ContainerStatsMap map[string]*dockercontainer.StatsResponse
 }
 
 const (
@@ -103,7 +103,7 @@ func NewFakeDockerClient() *FakeDockerClient {
 		Clock:        clock.RealClock{},
 		// default this to true, so that we trace calls, image pulls and container lifecycle
 		EnableTrace:         true,
-		ExecInspect:         &dockertypes.ContainerExecInspect{},
+		ExecInspect:         &dockercontainer.ExecInspect{},
 		ImageInspects:       make(map[string]*dockertypes.ImageInspect),
 		ImageIDsNeedingAuth: make(map[string]dockerregistry.AuthConfig),
 		RandGenerator:       rand.New(rand.NewSource(time.Now().UnixNano())),
@@ -681,7 +681,7 @@ func (f *FakeDockerClient) isAuthorizedForImage(image string, auth dockerregistr
 func (f *FakeDockerClient) PullImage(
 	image string,
 	auth dockerregistry.AuthConfig,
-	opts dockertypes.ImagePullOptions,
+	opts dockerimagetypes.PullOptions,
 ) error {
 	f.Lock()
 	defer f.Unlock()
@@ -715,7 +715,7 @@ func (f *FakeDockerClient) Info() (*dockersystem.Info, error) {
 
 func (f *FakeDockerClient) CreateExec(
 	id string,
-	opts dockertypes.ExecConfig,
+	opts dockercontainer.ExecOptions,
 ) (*dockertypes.IDResponse, error) {
 	f.Lock()
 	defer f.Unlock()
@@ -726,7 +726,7 @@ func (f *FakeDockerClient) CreateExec(
 
 func (f *FakeDockerClient) StartExec(
 	startExec string,
-	opts dockertypes.ExecStartCheck,
+	opts dockercontainer.ExecStartOptions,
 	sopts StreamOptions,
 ) error {
 	f.Lock()
@@ -746,12 +746,12 @@ func (f *FakeDockerClient) AttachToContainer(
 	return nil
 }
 
-func (f *FakeDockerClient) InspectExec(id string) (*dockertypes.ContainerExecInspect, error) {
+func (f *FakeDockerClient) InspectExec(id string) (*dockercontainer.ExecInspect, error) {
 	return f.ExecInspect, f.popError("inspect_exec")
 }
 
 func (f *FakeDockerClient) ListImages(
-	opts dockertypes.ImageListOptions,
+	opts dockerimagetypes.ListOptions,
 ) ([]dockerimagetypes.Summary, error) {
 	f.Lock()
 	defer f.Unlock()
@@ -762,7 +762,7 @@ func (f *FakeDockerClient) ListImages(
 
 func (f *FakeDockerClient) RemoveImage(
 	image string,
-	opts dockertypes.ImageRemoveOptions,
+	opts dockerimagetypes.RemoveOptions,
 ) ([]dockerimagetypes.DeleteResponse, error) {
 	f.Lock()
 	defer f.Unlock()
@@ -899,7 +899,7 @@ type FakeDockerPuller struct {
 }
 
 func (f *FakeDockerPuller) Pull(image string, _ []v1.Secret) error {
-	return f.client.PullImage(image, dockerregistry.AuthConfig{}, dockertypes.ImagePullOptions{})
+	return f.client.PullImage(image, dockerregistry.AuthConfig{}, dockerimagetypes.PullOptions{})
 }
 
 func (f *FakeDockerPuller) GetImageRef(image string) (string, error) {
@@ -910,13 +910,13 @@ func (f *FakeDockerPuller) GetImageRef(image string) (string, error) {
 	return image, err
 }
 
-func (f *FakeDockerClient) InjectContainerStats(data map[string]*dockertypes.StatsJSON) {
+func (f *FakeDockerClient) InjectContainerStats(data map[string]*dockercontainer.StatsResponse) {
 	f.Lock()
 	defer f.Unlock()
 	f.ContainerStatsMap = data
 }
 
-func (f *FakeDockerClient) GetContainerStats(id string) (*dockertypes.StatsJSON, error) {
+func (f *FakeDockerClient) GetContainerStats(id string) (*dockercontainer.StatsResponse, error) {
 	f.Lock()
 	defer f.Unlock()
 	f.appendCalled(CalledDetail{name: "get_container_stats"})
