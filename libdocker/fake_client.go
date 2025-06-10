@@ -32,6 +32,7 @@ import (
 	dockercontainer "github.com/docker/docker/api/types/container"
 	dockerimagetypes "github.com/docker/docker/api/types/image"
 	dockerregistry "github.com/docker/docker/api/types/registry"
+	system "github.com/docker/docker/api/types/system"
 
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/utils/clock"
@@ -106,10 +107,12 @@ func NewFakeDockerClient() *FakeDockerClient {
 		ImageInspects:       make(map[string]*dockertypes.ImageInspect),
 		ImageIDsNeedingAuth: make(map[string]dockerregistry.AuthConfig),
 		RandGenerator:       rand.New(rand.NewSource(time.Now().UnixNano())),
-		Information: dockertypes.Info{
-			Runtimes: map[string]dockertypes.Runtime{
-				"runc": dockertypes.Runtime{
-					Path: "runc",
+		Information: system.Info{
+			Runtimes: map[string]system.RuntimeWithStatus{
+				"runc": {
+					Runtime: system.Runtime{
+						Path: "runc",
+					},
 				},
 			},
 		},
