@@ -14,6 +14,8 @@ github.com/Microsoft/hcsshim v0.12.1 h1:ahSMCguNOQMvTV7wWLknLhpieyqA2hUyEb3j6R+6
 github.com/Microsoft/hcsshim v0.12.1/go.mod h1:RZV12pcHCXQ42XnlQ3pz6FZfmrC1C+R4gaOHhRNML1g=
 github.com/NYTimes/gziphandler v1.1.1 h1:ZUDjpQae29j0ryrS0u/B8HZfJBtBQHjqw2rQ2cqUQ3I=
 github.com/NYTimes/gziphandler v1.1.1/go.mod h1:n/CVRwUEOgIxrgPvAQhUUr9oeUtvrhMomdKFjzJNB0c=
+github.com/alauda/kubernetes v1.29.15 h1:W8UnZan0zty+Zas4HhKyPp7yTjlg7EkXPTtgmzESjcM=
+github.com/alauda/kubernetes v1.29.15/go.mod h1:L6/pfKQZ6Tv2O8gyT4OxhGZp+nNsjV54xtNodRoup9k=
 github.com/antlr/antlr4/runtime/Go/antlr/v4 v4.0.0-20230305170008-8188dc5388df h1:7RFfzj4SSt6nnvCPbCqijJi1nWCd+TqAT3bYCStRC18=
 github.com/antlr/antlr4/runtime/Go/antlr/v4 v4.0.0-20230305170008-8188dc5388df/go.mod h1:pSwJ0fSY5KhvocuWSx4fz3BA8OrA1bQn+K1Eli3BRwM=
 github.com/armon/circbuf v0.0.0-20150827004946-bbbad097214e h1:QEF07wC0T1rKkctt1RINW/+RMTVmiwxETico2l3gxJA=
@@ -517,8 +519,6 @@ k8s.io/kube-openapi v0.0.0-20231010175941-2dd684a91f00 h1:aVUu9fTY98ivBPKR9Y5w/A
 k8s.io/kube-openapi v0.0.0-20231010175941-2dd684a91f00/go.mod h1:AsvuZPBlUDVuCdzJ87iajxtXuR9oktsTctW/R9wwouA=
 k8s.io/kubelet v0.29.15 h1:aEoVJCW6eR+2rY2sdO/I9w5p0nTu/jSOeUBfRHFWjTY=
 k8s.io/kubelet v0.29.15/go.mod h1:l4IrTn+YrG/1i993gNiVs0uhk4nAUx1gGshR+vO3BOA=
-k8s.io/kubernetes v1.29.15 h1:hLcyf3XmxtfkubCEmmPX5QVD7lDclXjvEUrJeP283LM=
-k8s.io/kubernetes v1.29.15/go.mod h1:L6/pfKQZ6Tv2O8gyT4OxhGZp+nNsjV54xtNodRoup9k=
 k8s.io/mount-utils v0.29.15 h1:CnOqHmL9ZlxvUweywviXhy0CqhrM8lRxrcGXQDtHvDk=
 k8s.io/mount-utils v0.29.15/go.mod h1:SHUMR9n3b6tLgEmlyT36cL6fV6Sjwa5CJhc0guCXvb0=
 k8s.io/utils v0.0.0-20230726121419-3b25d923346b h1:sgn3ZU783SCgtaSJjpcVVlRqd6GSnlTLKgpAAttJvpI=
