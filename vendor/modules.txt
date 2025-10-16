@@ -110,6 +110,7 @@ github.com/docker/distribution/reference
 ## explicit
 github.com/docker/docker/api
 github.com/docker/docker/api/types
+github.com/docker/docker/api/types/backend
 github.com/docker/docker/api/types/blkiodev
 github.com/docker/docker/api/types/checkpoint
 github.com/docker/docker/api/types/container
@@ -130,7 +131,9 @@ github.com/docker/docker/client
 github.com/docker/docker/errdefs
 github.com/docker/docker/internal/multierror
 github.com/docker/docker/pkg/jsonmessage
+github.com/docker/docker/pkg/progress
 github.com/docker/docker/pkg/stdcopy
+github.com/docker/docker/pkg/streamformatter
 # github.com/docker/go-connections v0.5.0
 ## explicit; go 1.18
 github.com/docker/go-connections/nat
@@ -279,9 +282,6 @@ github.com/mailru/easyjson/jwriter
 # github.com/matttproud/golang_protobuf_extensions v1.0.4
 ## explicit; go 1.9
 github.com/matttproud/golang_protobuf_extensions/pbutil
-# github.com/mitchellh/mapstructure v1.4.1
-## explicit; go 1.14
-github.com/mitchellh/mapstructure
 # github.com/moby/docker-image-spec v1.3.1
 ## explicit; go 1.18
 github.com/moby/docker-image-spec/specs-go/v1
